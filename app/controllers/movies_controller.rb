@@ -21,8 +21,8 @@ class MoviesController < ApplicationController
       @ratings_to_show = @ratings.keys
       @movies = Movie.with_ratings(@ratings_to_show, @sorting)
     else
-      @ratings_to_show = Hash.new
-      @movies = Movie.with_ratings(nil, @sorting)
+      @ratings_to_show = @all_ratings
+      @movies = Movie.with_ratings(@ratings_to_show, @sorting)
     end
     @title_class = ""
     @release_date_class = ""
