@@ -8,8 +8,15 @@ class MoviesController < ApplicationController
 
   def index
     @all_ratings = Movie.all_ratings
-    @ratings = params[:ratings]
-    @sorting = params[:sorting]
+    if not params.has_key?(:ratings)
+      @ratings = session[:ratings]
+      @sorting = session[:sorting]
+    else
+      @ratings = params[:ratings]
+      @sorting = params[:sorting]
+      session[:ratings] = @ratings
+      session[:sorting] = @sorting
+    end
     @ratings_to_show = []
     if not @ratings.nil?
       @ratings_to_show = @ratings.keys
@@ -23,7 +30,7 @@ class MoviesController < ApplicationController
     if not @sorting.nil?
       if @sorting == "title"
         @title_class = "hilite bg-warning"
-      else
+      elsif @sorting == "release_date"
         @release_date_class = "hilite bg-warning"
       end
     end
