@@ -17,7 +17,6 @@ class MoviesController < ApplicationController
       session[:ratings] = @ratings
       session[:sorting] = @sorting
     end
-    @ratings_to_show = @all_ratings
     if not @ratings.nil?
       @ratings_to_show = @ratings.keys
       @movies = Movie.with_ratings(@ratings_to_show, @sorting)
