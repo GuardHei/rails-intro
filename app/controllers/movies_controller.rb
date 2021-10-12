@@ -11,6 +11,7 @@ class MoviesController < ApplicationController
     if not params.has_key?(:ratings) and not params.has_key?(:sorting)
       @ratings = session[:ratings]
       @sorting = session[:sorting]
+      redirect_to movies_path(:sorting => @sorting, :ratings => @ratings)
     else
       @ratings = params[:ratings]
       @sorting = params[:sorting]
