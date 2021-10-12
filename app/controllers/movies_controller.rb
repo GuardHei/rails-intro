@@ -9,9 +9,11 @@ class MoviesController < ApplicationController
   def index
     @all_ratings = Movie.all_ratings
     if not params.has_key?(:ratings) and not params.has_key?(:sorting)
-      @ratings = session[:ratings]
-      @sorting = session[:sorting]
-      redirect_to movies_path(:sorting => @sorting, :ratings => @ratings)
+      if session.has_key?(:rating) or session.has_key?(:sorting)
+        @ratings = session[:ratings]
+        @sorting = session[:sorting]
+        redirect_to movies_path(:sorting => @sorting, :ratings => @ratings)
+      end
     else
       @ratings = params[:ratings]
       @sorting = params[:sorting]
